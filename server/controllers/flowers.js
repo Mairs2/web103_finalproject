@@ -1,4 +1,5 @@
 import { pool } from "../config/database.js";
+import { flowerMeanings } from "../config/data.js";
 
 const getFlowers = async (req, res) => {
   try {
@@ -34,6 +35,18 @@ const getFlowerById = async (req, res) => {
     );
     if (!rows.length) return res.status(404).json({ error: "Flower not found" });
     res.json(rows[0]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getFlowerMeanings = async (req, res) => {
+  try {
+    const meanings = Object.entries(flowerMeanings).map(([name, meaning]) => ({
+      name,
+      meaning,
+    }));
+    res.json(meanings);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -80,6 +93,7 @@ const deleteFlower = async (req, res) => {
 export default {
   getFlowers,
   getFlowerById,
+  getFlowerMeanings,
   createFlower,
   updateFlower,
   deleteFlower,

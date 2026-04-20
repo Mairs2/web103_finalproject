@@ -35,7 +35,9 @@ const App = () => {
     return (
         <div className="App">
             <NavBar />
-            {element}
+            <div className="app-content">
+                {element}
+            </div>
             <Footer />
         </div>
     )

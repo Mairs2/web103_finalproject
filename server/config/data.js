@@ -3,7 +3,7 @@ import { fetchFlowersFromAPI } from "../services/plantAPI.js";
 
 
 
-const flowerMeanings ={
+export const flowerMeanings ={
   "Abatina": "Fickleness",
   "Acanthus": "The fine art, Artifice",
   "Aloe":  "Grief, Woe",
