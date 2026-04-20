@@ -1,5 +1,6 @@
 import {pool} from './database.js'
 import './dotenv.js'
+import { seedFlowers } from './data.js'
 // import { fileURLToPath } from 'url'
 // import path, { dirname } from 'path'
 // import fs from 'fs'
@@ -32,13 +33,14 @@ const createUserTable = async () => {
 
 const createFlowerTable = async () => {
   const createFlowerTableQuery = `
-        CREATE TABLE IF NOT EXISTS flowers (
+        DROP TABLE IF EXISTS flowers;
+        CREATE TABLE flowers (
             id SERIAL PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
+            name VARCHAR(255) NOT NULL,
             description TEXT,
             flower_family VARCHAR(100),
-            flower_meaning VARCHAR(255),
-            image_url VARCHAR(255)
+            flower_meaning TEXT,
+            image_url TEXT
         );
     `
     try {
@@ -54,8 +56,9 @@ const createFlowerTable = async () => {
 
 
 
-createUserTable()
-createFlowerTable()
+await createUserTable()
+await createFlowerTable()
+await seedFlowers()
 
 
 
