@@ -1,0 +1,50 @@
+.navbar {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    margin-bottom: 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-family: Avenir, "Century Gothic", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #373D3F;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links a {
+    font-family: Avenir, "Century Gothic", sans-serif;
+    font-size: 0.95rem;
+    color: #373D3F;
+    text-decoration: none;
+    padding: 4px 2px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.navbar-links a:hover {
+    color: #2a7abf;
+    border-bottom-color: #2a7abf;
+}
+
+.navbar-links a.active {
+    color: #2a7abf;
+    border-bottom-color: #2a7abf;
+    font-weight: 500;
+}
