@@ -90,4 +90,4 @@ const deleteFlower = async (req, res) => {
   }
 };
 
-export { getFlowers, getFlowerById, createFlower, updateFlower, deleteFlower };
+export { getFlowers, getFlowerById, getFlowerMeanings, createFlower, updateFlower, deleteFlower };
