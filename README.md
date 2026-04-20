@@ -1,3 +1,4 @@
+<img width="2914" height="1647" alt="discover" src="https://github.com/user-attachments/assets/eb73d5f1-06e6-4449-8b59-0b27fab424ae" />
 # [FlowerHunt]
 
 CodePath WEB103 Final Project
@@ -31,7 +32,8 @@ Backend: Express.js
 
 [Users can search or browse for flowers that they are loooking to grow or learn more about ]
 
-[]
+[<img width="2914" height="1647" alt="discover" src="https://github.com/user-attachments/assets/84e93ac7-da3a-4878-b143-f229e37df01d" />
+]
 
 ### [How to grow guide]
 
@@ -39,7 +41,7 @@ Backend: Express.js
 
 [gif goes here]
 
-### [✅Flower Gallery]
+### [Flower Gallery]
 
 [Users can store flowers they see around them to find out more information about it later, or flowers they grow in their garden to show their progress]
 
@@ -55,7 +57,8 @@ Backend: Express.js
 
 [Users can look up the flower language for flowers on the app]
 
-[gif goes here]
+[<img width="2914" height="1646" alt="dictionary" src="https://github.com/user-attachments/assets/e5fb30b4-0e81-465f-bf82-0bbd7823d52b" />
+]
 
 ### [Bouquet builder]
 
@@ -67,7 +70,9 @@ Backend: Express.js
 
 [Users can view flowers on individual pages that will give more information about the flower]
 
-[gif goes here]
+[<img width="2697" height="1646" alt="flowerPage" src="https://github.com/user-attachments/assets/af28330a-516b-46e4-b66b-d51b9f8b67e8" />
+
+]
 
 ### [ADDITIONAL FEATURES GO HERE - ADD ALL FEATURES HERE IN THE FORMAT ABOVE; you will check these off and add gifs as you complete them]
 
