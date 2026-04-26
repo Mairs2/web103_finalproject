@@ -45,13 +45,17 @@ const getFlowers = async (req, res) => {
 const getFlowerById = async (req, res) => {
   try {
     const lookupId = req.params.id;
-    const { rows } = await pool.query(
-      "SELECT * FROM flowers WHERE id = $1",
-      [lookupId]
-    );
-    if (rows.length) {
-      res.json(rows[0]);
-      return;
+    const isNumericId = /^\d+$/.test(String(lookupId));
+
+    if (isNumericId) {
+      const { rows } = await pool.query(
+        "SELECT * FROM flowers WHERE id = $1",
+        [Number(lookupId)]
+      );
+      if (rows.length) {
+        res.json(rows[0]);
+        return;
+      }
     }
 
     const trefleFlower = await fetchFlowerBySlug(lookupId);

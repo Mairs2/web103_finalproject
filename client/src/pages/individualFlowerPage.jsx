@@ -3,21 +3,15 @@ import { useParams } from "react-router";
 import "../Pages_css/individualFlowerPage.css";
 
 const detailsRows = [
-  ["Order", "order"],
+  ["Scientific Name", "scientific_name"],
   ["Family", "flower_family"],
+  ["Order", "order"],
   ["Genus", "genus"],
   ["Species", "species"],
-  ["Flower Type", "flower_type"],
-  ["Flower Array", "flower_array"],
-  ["Petal Shape", "petal_shape"],
-  ["Leaf Type", "leaf_type"],
-  ["Leaf Edge", "leaf_edge"],
-  ["Life Type", "life_type"],
   ["Flower Colors", "flower_colors"],
-  ["Leaf Colors", "leaf_colors"],
-  ["Fruit Colors", "fruit_colors"],
-  ["Height", "height"],
-  ["Flower Diameter", "flower_diameter"],
+  ["Flower Conspicuous", "flower_array"],
+  ["Bloom Months", "bloom_months"],
+  ["Growth Habit", "growth_habit"],
   ["Flower Meaning", "flower_meaning"],
 ];
 
@@ -26,6 +20,26 @@ const fallbackFlower = {
   name: "Flower Name",
   description: "Flower details will appear here once a flower is selected.",
   image_url: "",
+};
+
+const formatDetailValue = (value) => {
+  if (value === null || value === undefined || value === "") return null;
+  if (Array.isArray(value)) {
+    if (!value.length) return null;
+    const normalized = value
+      .map((item) => formatDetailValue(item))
+      .filter((item) => item !== null);
+    return normalized.length ? normalized.join(", ") : null;
+  }
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  if (typeof value === "object") {
+    if (typeof value.name === "string" && value.name.trim()) return value.name;
+    if (typeof value.common_name === "string" && value.common_name.trim()) return value.common_name;
+    if (typeof value.scientific_name === "string" && value.scientific_name.trim()) return value.scientific_name;
+    if (typeof value.slug === "string" && value.slug.trim()) return value.slug;
+    return null;
+  }
+  return String(value);
 };
 
 const IndividualFlowerPage = ({ flowers = [] }) => {
@@ -64,6 +78,9 @@ const IndividualFlowerPage = ({ flowers = [] }) => {
   }, [flowerFromList, flowerId]);
 
   const activeFlower = flowerFromList || flowerFromApi || fallbackFlower;
+  const visibleDetails = detailsRows
+    .map(([label, key]) => ({ label, value: formatDetailValue(activeFlower[key]), key }))
+    .filter((row) => row.value !== null);
 
   return (
     <main className="individual-flower-page">
@@ -96,11 +113,14 @@ const IndividualFlowerPage = ({ flowers = [] }) => {
         {!isLoading && activeFlower.description && (
           <p className="flower-note">{activeFlower.description}</p>
         )}
+        {!isLoading && !activeFlower.description && visibleDetails.length === 0 && (
+          <p className="flower-note">No detailed information is available for this flower yet.</p>
+        )}
 
         <div className="flower-details-grid">
-          {detailsRows.map(([label, key]) => (
+          {visibleDetails.map(({ label, key, value }) => (
             <p key={key} className="detail-item">
-              <span>{label}:</span> {activeFlower[key] || "..."}
+              <span>{label}:</span> {value}
             </p>
           ))}
         </div>

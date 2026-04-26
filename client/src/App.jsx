@@ -28,7 +28,8 @@ const App = () => {
         { path: '/dictionary', element: <FlowerDictionary /> },
         { path: '/scan', element: <ScanAFlower /> },
         { path: '/gallery', element: <FlowerGallery /> },
-        { path: '/gallery/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> }
+        { path: '/gallery/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> },
+        { path: '/discover/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> }
 
     ]);
 

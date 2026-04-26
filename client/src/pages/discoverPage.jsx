@@ -121,7 +121,7 @@ const DiscoverPage = () => {
                 {flowers.map(flower => (
                     <Link
                         key={flower.id}
-                        to={`/gallery/${flower.id}`}
+                        to={`/discover/${flower.id}`}
                         className="flower-card"
                     >
                         <div className="flower-card-image">
