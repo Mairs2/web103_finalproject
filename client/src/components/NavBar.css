@@ -81,3 +81,18 @@
     padding: 4px;
     line-height: 1;
 }
+.navbar-auth-button {
+    font-family: Avenir, "Century Gothic", sans-serif;
+    font-size: 0.95rem;
+    color: #373D3F;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 2px;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar-auth-button:hover {
+    color: #2a7abf;
+    border-bottom-color: #2a7abf;
+}

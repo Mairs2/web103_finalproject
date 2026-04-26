@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import flowerRoutes from "./routes/flowers.js";
+import userRoutes from "./routes/users.js";
 
 const app = express();
 
@@ -8,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/flowers", flowerRoutes);
+app.use("/api/users", userRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
