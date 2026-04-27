@@ -46,6 +46,9 @@ const IndividualFlowerPage = ({ flowers = [] }) => {
   const { flowerId } = useParams();
   const [flowerFromApi, setFlowerFromApi] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInGallery, setIsInGallery] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [galleryMessage, setGalleryMessage] = useState("");
 
   const flowerFromList = useMemo(
     () => flowers.find((flower) => String(flower.id) === String(flowerId)),
@@ -77,10 +80,77 @@ const IndividualFlowerPage = ({ flowers = [] }) => {
     loadFlower();
   }, [flowerFromList, flowerId]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("flowerhuntToken");
+    if (!token || !flowerId) {
+      setIsInGallery(false);
+      return;
+    }
+
+    const loadGalleryStatus = async () => {
+      try {
+        const response = await fetch("/api/users/gallery", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!response.ok) return;
+        const gallery = await response.json();
+        setIsInGallery(
+          Array.isArray(gallery) &&
+            gallery.some((flower) => String(flower.id) === String(flowerId))
+        );
+      } catch (error) {
+        console.error("Error loading gallery status:", error);
+      }
+    };
+
+    loadGalleryStatus();
+  }, [flowerId]);
+
   const activeFlower = flowerFromList || flowerFromApi || fallbackFlower;
   const visibleDetails = detailsRows
     .map(([label, key]) => ({ label, value: formatDetailValue(activeFlower[key]), key }))
     .filter((row) => row.value !== null);
+  const isLoggedIn = Boolean(localStorage.getItem("flowerhuntToken"));
+
+  const handleAddToGallery = async () => {
+    const token = localStorage.getItem("flowerhuntToken");
+    if (!token) {
+      setGalleryMessage("Please log in to save flowers to your gallery.");
+      return;
+    }
+
+    setIsSaving(true);
+    setGalleryMessage("");
+    try {
+      const response = await fetch("/api/users/gallery", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id: activeFlower.id || flowerId,
+          name: activeFlower.name || "Unknown Flower",
+          image_url: activeFlower.image_url || null,
+          flower_family: activeFlower.flower_family || null,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setGalleryMessage(data.error || "Could not save flower to your gallery.");
+        return;
+      }
+
+      setIsInGallery(true);
+      setGalleryMessage("Added to your flower gallery.");
+    } catch (error) {
+      console.error("Error adding flower to gallery:", error);
+      setGalleryMessage("Could not connect to the server.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <main className="individual-flower-page">
@@ -98,17 +168,25 @@ const IndividualFlowerPage = ({ flowers = [] }) => {
               )}
             </div>
           </div>
-
-          <div className="thumbnail-column" aria-hidden="true">
-            <div className="thumbnail-placeholder">🖼️</div>
-            <div className="thumbnail-placeholder">🖼️</div>
-            <div className="thumbnail-placeholder">🖼️</div>
-          </div>
         </div>
       </section>
 
       <section className="flower-details-section">
         <h2>Flower Details</h2>
+        <div className="gallery-action-row">
+          <button
+            type="button"
+            className="gallery-action-btn"
+            disabled={!isLoggedIn || isInGallery || isSaving}
+            onClick={handleAddToGallery}
+          >
+            {isInGallery ? "Saved in Your Gallery" : isSaving ? "Saving..." : "Add to My Gallery"}
+          </button>
+          {!isLoggedIn && (
+            <p className="gallery-action-note">Log in to save flowers to your gallery.</p>
+          )}
+          {galleryMessage && <p className="gallery-action-note">{galleryMessage}</p>}
+        </div>
         {isLoading && <p className="flower-note">Loading flower details...</p>}
         {!isLoading && activeFlower.description && (
           <p className="flower-note">{activeFlower.description}</p>

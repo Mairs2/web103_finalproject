@@ -59,62 +59,89 @@ const DiscoverPage = () => {
 
     return (
         <main className="discover-page">
-            <h1 className="discover-title">
-                {searchQuery ? `Results for "${searchQuery}"` : 'Discover Flowers'}
-            </h1>
-            {!isLoading && totalFlowers > 0 && (
-                <p className="discover-status">{totalFlowers} flowers found</p>
-            )}
+            <section className="discover-header">
+                <h1 className="discover-title">
+                    {searchQuery ? `Results for "${searchQuery}"` : 'Discover Flowers'}
+                </h1>
 
-            <div className="discover-filters">
-                <label>
-                    Color:
-                    <select
-                        value={selectedColor}
-                        onChange={(e) => updateParam('color', e.target.value)}
-                    >
-                        <option value="">Any</option>
-                        <option value="red">Red</option>
-                        <option value="white">White</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="pink">Pink</option>
-                        <option value="purple">Purple</option>
-                    </select>
-                </label>
+                <div className="discover-filters">
+                    <label>
+                        Color:
+                        <select
+                            value={selectedColor}
+                            onChange={(e) => updateParam('color', e.target.value)}
+                        >
+                            <option value="">Any</option>
+                            <option value="red">Red</option>
+                            <option value="white">White</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="pink">Pink</option>
+                            <option value="purple">Purple</option>
+                        </select>
+                    </label>
 
-                <label>
-                    Bloom Month:
-                    <select
-                        value={selectedBloomMonth}
-                        onChange={(e) => updateParam('bloomMonth', e.target.value)}
-                    >
-                        <option value="">Any</option>
-                        <option value="jan">January</option>
-                        <option value="apr">April</option>
-                        <option value="jun">June</option>
-                        <option value="sep">September</option>
-                        <option value="dec">December</option>
-                    </select>
-                </label>
+                    <label>
+                        Bloom Month:
+                        <select
+                            value={selectedBloomMonth}
+                            onChange={(e) => updateParam('bloomMonth', e.target.value)}
+                        >
+                            <option value="">Any</option>
+                            <option value="jan">January</option>
+                            <option value="apr">April</option>
+                            <option value="jun">June</option>
+                            <option value="sep">September</option>
+                            <option value="dec">December</option>
+                        </select>
+                    </label>
 
-                <label>
-                    Sort:
-                    <select
-                        value={selectedSort}
-                        onChange={(e) => updateParam('sort', e.target.value)}
-                    >
-                        <option value="common_name:asc">Name (A-Z)</option>
-                        <option value="common_name:desc">Name (Z-A)</option>
-                        <option value="images_count:desc">Most Photographed</option>
-                        <option value="updated_at:desc">Recently Added</option>
-                    </select>
-                </label>
-            </div>
+                    <label>
+                        Sort:
+                        <select
+                            value={selectedSort}
+                            onChange={(e) => updateParam('sort', e.target.value)}
+                        >
+                            <option value="common_name:asc">Name (A-Z)</option>
+                            <option value="common_name:desc">Name (Z-A)</option>
+                            <option value="images_count:desc">Most Photographed</option>
+                            <option value="updated_at:desc">Recently Added</option>
+                        </select>
+                    </label>
+                </div>
+
+                {!isLoading && totalFlowers > 0 && (
+                    <p className="discover-count">{totalFlowers} flowers found</p>
+                )}
+            </section>
 
             {isLoading && <p className="discover-status">Loading flowers...</p>}
 
             {!isLoading && flowers.length === 0 && (
                 <p className="discover-status">No flowers found.</p>
+            )}
+
+            {flowers.length > 0 && (
+                <div className="pagination-row pagination-top">
+                    <div className="pagination">
+                        <button
+                            className="pagination-btn"
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            ← Prev
+                        </button>
+                        <span className="pagination-info">
+                            Page {currentPage}
+                        </span>
+                        <button
+                            className="pagination-btn"
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={!hasNextPage}
+                        >
+                            Next →
+                        </button>
+                    </div>
+                </div>
             )}
 
             <div className="flower-grid">
@@ -145,24 +172,26 @@ const DiscoverPage = () => {
             </div>
 
             {flowers.length > 0 && (
-                <div className="pagination">
-                    <button
-                        className="pagination-btn"
-                        onClick={() => goToPage(currentPage - 1)}
-                        disabled={currentPage === 1}
-                    >
-                        ← Prev
-                    </button>
-                    <span className="pagination-info">
-                        Page {currentPage}
-                    </span>
-                    <button
-                        className="pagination-btn"
-                        onClick={() => goToPage(currentPage + 1)}
-                        disabled={!hasNextPage}
-                    >
-                        Next →
-                    </button>
+                <div className="pagination-row pagination-bottom">
+                    <div className="pagination">
+                        <button
+                            className="pagination-btn"
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            ← Prev
+                        </button>
+                        <span className="pagination-info">
+                            Page {currentPage}
+                        </span>
+                        <button
+                            className="pagination-btn"
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={!hasNextPage}
+                        >
+                            Next →
+                        </button>
+                    </div>
                 </div>
             )}
         </main>

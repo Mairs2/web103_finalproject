@@ -1,0 +1,90 @@
+.flower-gallery-page {
+  width: min(1100px, 100%);
+  margin: 0 auto 48px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  color: #2f3335;
+}
+
+.flower-gallery-title {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin: 18px 0 24px;
+  font-size: 2rem;
+}
+
+.flower-gallery-status {
+  text-align: center;
+  color: #5f6a6f;
+  margin: 28px 0;
+}
+
+.flower-gallery-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: start;
+  gap: 22px;
+}
+
+.gallery-card {
+  border: 3px solid #111;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  max-width: 300px;
+  width: 100%;
+}
+
+.gallery-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gallery-card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #f3f3f3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.gallery-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-card-placeholder {
+  font-size: 4rem;
+}
+
+.gallery-card h2 {
+  margin: 12px 14px 4px;
+  font-size: 1.05rem;
+}
+
+.gallery-card p {
+  margin: 0 14px 14px;
+  color: #26748f;
+  font-size: 0.85rem;
+}
+
+.gallery-remove-btn {
+  margin: 0 14px 14px;
+  border: 2px solid #111;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 8px 10px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.gallery-remove-btn:hover {
+  background-color: #ffe9e9;
+}

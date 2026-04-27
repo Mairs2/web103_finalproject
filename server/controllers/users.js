@@ -16,6 +16,17 @@ const createToken = (user) => {
   );
 };
 
+const getAuthUserId = (req) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return null;
+  }
+
+  const token = authHeader.split(" ")[1];
+  const decoded = jwt.verify(token, JWT_SECRET);
+  return decoded.id;
+};
+
 const registerUser = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -123,22 +134,18 @@ const loginUser = async (req, res) => {
 
 const getCurrentUser = async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    const userId = getAuthUserId(req);
+    if (!userId) {
       return res.status(401).json({
         error: "No token provided",
       });
     }
 
-    const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, JWT_SECRET);
-
     const { rows } = await pool.query(
       `SELECT id, username, user_role, created_at, user_gallery
        FROM users
        WHERE id = $1`,
-      [decoded.id]
+      [userId]
     );
 
     if (rows.length === 0) {
@@ -156,4 +163,117 @@ const getCurrentUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getCurrentUser };
+const getUserGallery = async (req, res) => {
+  try {
+    const userId = getAuthUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const { rows } = await pool.query(
+      "SELECT user_gallery FROM users WHERE id = $1",
+      [userId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(Array.isArray(rows[0].user_gallery) ? rows[0].user_gallery : []);
+  } catch (error) {
+    console.error("Get gallery error:", error);
+    res.status(401).json({ error: "Invalid or expired token" });
+  }
+};
+
+const addFlowerToGallery = async (req, res) => {
+  try {
+    const userId = getAuthUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const { id, name, image_url, flower_family } = req.body;
+    if (!id || !name) {
+      return res.status(400).json({ error: "Flower id and name are required" });
+    }
+
+    const { rows } = await pool.query(
+      "SELECT user_gallery FROM users WHERE id = $1",
+      [userId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const currentGallery = Array.isArray(rows[0].user_gallery) ? rows[0].user_gallery : [];
+    const alreadyExists = currentGallery.some((flower) => String(flower.id) === String(id));
+    if (alreadyExists) {
+      return res.status(200).json({ message: "Flower already in gallery", gallery: currentGallery });
+    }
+
+    const updatedGallery = [
+      ...currentGallery,
+      {
+        id: String(id),
+        name,
+        image_url: image_url || null,
+        flower_family: flower_family || null,
+      },
+    ];
+
+    await pool.query(
+      "UPDATE users SET user_gallery = $1::jsonb WHERE id = $2",
+      [JSON.stringify(updatedGallery), userId]
+    );
+
+    res.status(201).json({ message: "Flower added to gallery", gallery: updatedGallery });
+  } catch (error) {
+    console.error("Add gallery flower error:", error);
+    res.status(401).json({ error: "Invalid or expired token" });
+  }
+};
+
+const removeFlowerFromGallery = async (req, res) => {
+  try {
+    const userId = getAuthUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const { flowerId } = req.params;
+    const { rows } = await pool.query(
+      "SELECT user_gallery FROM users WHERE id = $1",
+      [userId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const currentGallery = Array.isArray(rows[0].user_gallery) ? rows[0].user_gallery : [];
+    const updatedGallery = currentGallery.filter(
+      (flower) => String(flower.id) !== String(flowerId)
+    );
+
+    await pool.query(
+      "UPDATE users SET user_gallery = $1::jsonb WHERE id = $2",
+      [JSON.stringify(updatedGallery), userId]
+    );
+
+    res.status(200).json({ message: "Flower removed from gallery", gallery: updatedGallery });
+  } catch (error) {
+    console.error("Remove gallery flower error:", error);
+    res.status(401).json({ error: "Invalid or expired token" });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  getCurrentUser,
+  getUserGallery,
+  addFlowerToGallery,
+  removeFlowerFromGallery,
+};

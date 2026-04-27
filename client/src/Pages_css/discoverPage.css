@@ -4,18 +4,33 @@
     color: #2f3335;
 }
 
+.discover-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0 24px;
+}
+
 .discover-title {
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    margin: 8px 0 24px;
+    margin: 0 0 14px;
 }
 
 .discover-status {
     text-align: center;
     color: #5f6a6f;
     font-size: 1rem;
-    margin: 48px 0;
+    margin: 28px 0;
+}
+
+.discover-count {
+    text-align: center;
+    color: #5f6a6f;
+    font-size: 1rem;
+    margin: 2px 0 0;
 }
 
 .discover-filters {
@@ -23,7 +38,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 14px;
-    margin: 0 0 24px;
+    margin: 0;
 }
 
 .discover-filters label {
@@ -44,8 +59,14 @@
 
 .flower-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 24px;
+}
+
+.pagination-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .flower-card {
@@ -120,6 +141,13 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+}
+
+.pagination-top {
+    margin: 10px 0 24px;
+}
+
+.pagination-bottom {
     margin-top: 36px;
 }
 
@@ -152,11 +180,23 @@
 
 @media (max-width: 640px) {
     .flower-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
     }
 
     .discover-title {
         font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .flower-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 980px) {
+    .flower-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
