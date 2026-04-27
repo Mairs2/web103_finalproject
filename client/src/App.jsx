@@ -30,7 +30,7 @@ const App = () => {
         { path: '/scan', element: <ScanAFlower /> },
         { path: '/gallery', element: <FlowerGallery /> },
         { path: '/gallery/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> },
-        { path: '/discover/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> }
+        { path: '/discover/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> },
         { path: '/login', element: <AuthPage /> }
 
     ]);
