@@ -3,9 +3,9 @@
 
 CodePath WEB103 Final Project
 
-Designed and developed by: Sodiq Balogun, Mary Odetayo, Louis Miguel Sabaricos, Xuewen Yao
+Designed and developed by: Sodiq Balogun, Mary Odetayo, Louis Miguel Sabaricos
 
-🔗 Link to deployed app:
+🔗 Link to deployed app: https://dashboard.render.com/d/dpg-d7ghkn57vvec739k76o0-a
 
 ## About
 
@@ -41,17 +41,11 @@ Backend: Express.js
 
 [gif goes here]
 
-### [Flower Gallery]
+### [✅ Flower Gallery]
 
 [Users can store flowers they see around them to find out more information about it later, or flowers they grow in their garden to show their progress]
 
-[gif goes here]
-
-### [Flower Scanner]
- 
-[Users can find flowers around them and scan it to find out information about them]
-
-[gif goes here]
+![Flower Gallery Gif](FinalProject-Gallery.gif)
 
 ### [✅Floriography dictionary]
 
@@ -62,7 +56,7 @@ Backend: Express.js
 
 ### [Bouquet builder]
 
-[Users can find how to build a personal bouquet based on flowers they purchased and/ have grown. provides and interactive, fun and calming activity to do alone or with friends]
+[Users can find how to build a personal bouquet based on flowers they purchased and/ have grown. provides an interactive, fun and calming activity to do alone or with friends]
 
 [gif goes here]
 
