@@ -115,6 +115,14 @@ export const fetchFlowerBySlug = async (slug) => {
     flower_array: species.flower?.conspicuous ?? null,
     bloom_months: species.growth?.bloom_months ?? null,
     growth_habit: species.specifications?.growth_habit ?? null,
+    //grow guide data:
+    growth_rate: species.specifications?.growth_rate ?? null,
+    light: species.growth?.light ?? null,
+    ph_minimum: species.growth?.ph_minimum ?? null,
+    ph_maximum: species.growth?.ph_maximum ?? null,
+    atmospheric_humidity: species.growth?.atmospheric_humidity ?? null,
+    soil_nutriments: species.growth?.soil_nutriments ?? null,
+    soil_salinity: species.growth?.soil_salinity ?? null,
   };
 };
 

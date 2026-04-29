@@ -4,10 +4,10 @@ import { useRoutes} from 'react-router';
 import AboutPage from './pages/aboutPage';
 import HomePage from './pages/homePage';
 import FlowerDictionary from './pages/flowerDictionary';
-import ScanAFlower from './pages/scanAFlower';
 import FlowerGallery from './pages/flowerGallery';
 import DiscoverPage from './pages/discoverPage';
 import IndividualFlowerPage from './pages/individualFlowerPage';
+import GrowGuide from './pages/growGuide';
 import AuthPage from './pages/AuthPage';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -27,11 +27,11 @@ const App = () => {
         { path: '/about', element: <AboutPage /> },
         { path: '/discover', element: <DiscoverPage /> },
         { path: '/dictionary', element: <FlowerDictionary /> },
-        { path: '/scan', element: <ScanAFlower /> },
         { path: '/gallery', element: <FlowerGallery /> },
         { path: '/gallery/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> },
         { path: '/discover/:flowerId', element: <IndividualFlowerPage flowers={flowers} /> },
-        { path: '/login', element: <AuthPage /> }
+        { path: '/login', element: <AuthPage /> },
+        { path: '/grow-guide', element: <GrowGuide /> }
 
     ]);
 

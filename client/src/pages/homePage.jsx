@@ -13,10 +13,10 @@ const cards = [
     {
         img: 'src/assets/bouquet.jpg',
         alt: 'Bouquet',
-        title: 'Build a Bouquet',
-        description: 'Build a bouquet that you love with our bouquet builder guide. A fun activity for a group or an individual.',
-        linkText: 'Bouquet Guide',
-        linkTo: '/bouquet',
+        title: 'Grow Guide',
+        description: 'Learn how to grow your favorite flowers with our comprehensive grow guide. From soil preparation to watering tips, we have everything you need to cultivate a thriving garden.',
+        linkText: 'Grow Guide',
+        linkTo: '/grow-guide',
     },
     {
         img: 'src/assets/hydrengea.jpg',

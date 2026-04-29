@@ -46,7 +46,7 @@ const NavBar = () => {
             <ul className="navbar-links">
                 <li><NavLink to="/discover">Discover Flowers</NavLink></li>
                 <li><NavLink to="/dictionary">Flower Dictionary</NavLink></li>
-                <li><NavLink to="/scan">Scan-A-Flower</NavLink></li>
+                {/* <li><NavLink to="/scan">Scan-A-Flower</NavLink></li> */}
                 <li><NavLink to="/gallery">Flower Gallery</NavLink></li>
 
                 {user ? (
