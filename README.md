@@ -35,11 +35,11 @@ Backend: Express.js
 [<img width="2914" height="1647" alt="discover" src="https://github.com/user-attachments/assets/84e93ac7-da3a-4878-b143-f229e37df01d" />
 ]
 
-### [How to grow guide]
+### [✅How to grow guide]
 
 [A guide that shows how to grow certain flowers and provide continous care for it]
 
-[gif goes here]
+![Grow Guide Gif](growGuide.gif)
 
 ### [✅ Flower Gallery]
 
